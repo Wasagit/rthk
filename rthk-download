@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# 輕談淺唱不夜天 episode download
+# First playlist is curl'ed, the resulting chunklist is used as input to ffmpeg to download
+# the program to mp3
+#
+# Two parameters are required, first one is date <20190101> and second one is filename <test.mp3>
+
+#output=`curl -s http://stmw1.rthk.hk/aod/_definst_/radio/archive/radio2/keepuco/mp3/mp3:$1.mp3/playlist.m3u8 | tail -1`
+#echo $output
+#ffmpeg -i http://stmw1.rthk.hk/aod/_definst_/radio/archive/radio2/keepuco/mp3/mp3:$1.mp3/$output -c copy $2
+
+if [ -z $1 ]; then
+        D=`date -v +7H +%Y%m%d`
+        FILEDATE=`date -v +7H +%d%m%y`
+        DAY=`date -v +7H +%a`
+else
+        D=`date -d $1 +%Y%m%d`
+        FILEDATE=`date -d $1 +%d%m%y`
+        DAY=`date -d $1 +%a`
+fi
+
+echo $D
+echo $FILEDATE
+echo $DAY
+
+#ffmpeg -i https://rthkaod3-vh.akamaihd.net/i/m4a/radio/archive/radio2/keepuco/m4a/$D.m4a/master.m3u8 /home/wai/rthk/rthk-talklightly-$FILEDATE-$DAY.mp3
+
+ffmpeg -i https://rthkaod3-vh.akamaihd.net/i/m4a/radio/archive/radio2/keepuco/m4a/$D.m4a/master.m3u8 /Users/wai/Dropbox/Music/RTHK/rthk-talklightly-$FILEDATE-$DAY.mp3
+
+
